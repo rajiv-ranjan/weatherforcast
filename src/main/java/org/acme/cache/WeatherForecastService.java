@@ -11,11 +11,11 @@ public class WeatherForecastService {
 
     @CacheResult(cacheName = "weather-cache")
     public String getDailyForecast(LocalDate date, String city) {
-        try {
-            Thread.sleep(2000L);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+        // try {
+        //     Thread.sleep(2000L);
+        // } catch (InterruptedException e) {
+        //     Thread.currentThread().interrupt();
+        // }
         return date.getDayOfWeek() + " will be " + getDailyResult(date.getDayOfMonth() % 4) + " in " + city;
     }
 

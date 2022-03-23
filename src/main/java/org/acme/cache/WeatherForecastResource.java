@@ -9,11 +9,14 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.Vector;
 
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
 @Path("/weather")
 public class WeatherForecastResource {
+
+    Vector v = new Vector();
 
     @Inject
     WeatherForecastService service;
@@ -27,6 +30,10 @@ public class WeatherForecastResource {
                 service.getDailyForecast(LocalDate.now().plusDays(daysInFuture + 1L), city),
                 service.getDailyForecast(LocalDate.now().plusDays(daysInFuture + 2L), city));
         long executionEnd = System.currentTimeMillis();
-        return new WeatherForecast(dailyForecasts, executionEnd - executionStart);
+        byte b[] = new byte[5048576];
+        v.add(b);
+        Runtime rt = Runtime.getRuntime();
+        System.out.println( "free memory: " + rt.freeMemory() );
+        return new WeatherForecast(dailyForecasts, executionEnd - executionStart,rt.freeMemory());
     }
 }
